@@ -197,3 +197,49 @@
     skos:definition "Das Höchstalter in Jahre"@de;
     rdfs:domain <AgeRestriction> ;
     rdfs:range xsd:int .
+
+# Properties and classes related to Authority Directory
+
+<id> a rdf:Property;
+   skos:prefLabel "ID"@en;
+   skos:prefLabel "ID"@de;
+   skos:definition "The official identifier of the subject";
+   rdfs:range xsd:string .
+
+<Employment> a rdfs:Class;
+   rdfs:subClassOf schema:ContactPoint;
+   skos:prefLabel "Employment"@en;
+   skos:definition "An employment position"@en ;
+   rdfs:comment "Typical properties include  dcterms:description".
+
+<employmentFunction>  a rdf:Property;
+   skos:prefLabel "ID"@en;
+   skos:prefLabel "ID"@de;
+   skos:definition "Describes the function of the subject";
+   rdfs:domain <Employment> ;
+   rdfs:range xsd:string .
+
+<PaymentContact> a rdfs:Class;
+   skos:prefLabel "PaymentContact"@en;
+   skos:definition "A bank account identifier or similar to witch payments can be directed"@en.
+
+<iban>  a rdf:Property;
+   skos:prefLabel "iban"@en;
+   skos:prefLabel "iban"@de;
+   skos:definition "Points to the IBAN identifier of the subject (in the form for digital transmission, i.e. without spaces)"@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
+
+<swift>  a rdf:Property;
+   skos:prefLabel "swift"@en;
+   skos:prefLabel "swift"@de;
+   skos:definition "Points to the SWIFT number associated to the subject"@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
+
+<bankName>  a rdf:Property;
+   skos:prefLabel "Bank Name"@en;
+   skos:prefLabel "Bank Name"@de;
+   skos:definition "Points to the bank name of the subject."@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
