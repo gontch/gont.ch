@@ -34,7 +34,7 @@ var init = function () {
 
     graphs.forEach(function (graph) {
       // map namespace to listener config
-      graph = rdf.utils.mapNamespaceGraph(graph, searchNs, replaceNs);
+//      graph = rdf.utils.mapNamespaceGraph(graph, searchNs, replaceNs);
 
       mergedGraph.addAll(graph);
     });
