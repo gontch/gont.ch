@@ -1,0 +1,289 @@
+@base <https://gont.ch/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org> .
+
+# id, range integer
+# name: skos-label
+# synonyme: skos alt-label
+# aktion p und d übernehmen, mit klasse Aktion als object
+# rechtliche Grundlage: legalBasisDescription (range literal), legalBasis (range: Gesetz/verorrdnung - "Norm"/ lkif:"Legal_Source", URI? web URI oder data)
+
+<GovernmentService> a rdfs:Class, owl:Class;
+   skos:prefLabel "Government Service"@en;
+   skos:prefLabel "Behörden Leistung"@de;
+   skos:altLabel "Öffentliche Leistung"@de;
+   rdfs:comment "TODO: check relation to schema:Service and GovernmentService";
+   rdfs:comment "Defined as 'Leistung' in eCH-177 vocabulary, specified in ECH-73.".
+
+
+# Service catalog related classes and properties
+
+<ServiceCatalogEntry> a rdfs:Class, owl:Class;
+   skos:prefLabel "Service Cat-alog Entry"@en;
+   skos:prefLabel "Eintrag Leistungsinventar"@de;
+   skos:definition "Eine Leistung gemäss eCH-0070";
+   rdfs:subClassOf [
+      a owl:Restrictions;
+      owl:onProperty dcterms:title;
+      owl:minCardinality 1
+   ].
+
+
+<serviceCatalogEntry> a rdf:Property ;
+    skos:prefLabel "Service Catalog Entry"@en ;
+    skos:prefLabel "Eintrag im Leistungskatalog"@de ;
+    skos:definition "Points to the kind of service of the subject pointing to a Service Catalog Entry"@en;
+    rdfs:domain <GovernmentService> ;
+    rdfs:range <ServiceCatalogEntry> .
+
+
+<recommendedAdditionalService> a rdf:Property ;
+    skos:prefLabel "Recommended Additional Service"@en ;
+    skos:prefLabel "Empfohlene Zusatzdiensleistung"@de ;
+    skos:definition "Points to a recommended additional service related to the subject."@en;
+    rdfs:domain <GovernmentService> ;
+    rdfs:range <GovernmentService> .
+
+<serviceProvider> a rdf:Property ;
+    skos:prefLabel "Service Provider"@en ;
+    skos:prefLabel "Leistungerbringer"@de ;
+    skos:prefLabel "Furnitur da prestaziuns"@rm ;
+    skos:definition "Points to the provider of the subject, usually a GovernmentOrganization"@de;
+    rdfs:domain <GovernmentService> ;
+    rdfs:range <GovernmentOrganization> .
+
+<serviceOutput> a rdf:Property ;
+    skos:prefLabel "Service Output"@en ;
+    skos:prefLabel "Output der Dienstleistung"@de ;
+    skos:definition "Point to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de;
+    rdfs:domain <GovernmentService>.
+
+<restriction> a rdf:Property ;
+    skos:prefLabel "Restriction"@en ;
+    skos:prefLabel "Einschränkung"@de ;
+    skos:definition "Point to a restriction on the availability of the subject."@de;
+    rdfs:domain <GovernmentService>;
+    rdfs:range <Restriction>.
+
+<actionD> a rdf:Property ;
+    skos:prefLabel "Action (distribution)"@en ;
+    skos:prefLabel "Aktion (Vertrieb)"@de ;
+    skos:definition "Points to the verb denoting the action of procuring the service."@de;
+    rdfs:domain <ServiceCatalogEntry> ;
+    rdfs:range xsd:string .
+
+<actionP> a rdf:Property ;
+    skos:prefLabel "Action (production)"@en ;
+    skos:prefLabel "Aktion (Produktion)"@de ;
+    skos:definition "Points to the verb denoting the action of rendering the service."@de;
+    rdfs:domain <ServiceCatalogEntry> ;
+    rdfs:range xsd:string .
+
+<serviceResultDescription> a rdf:Property ; #And what name for the result document/product IRI? "product"? "serviceProduct", "resultDocument"- or rename this to serviceResultDescription?
+    skos:prefLabel "Service Result"@en ;
+    skos:prefLabel "Ergebnis der Leistung"@de ;
+    skos:definition "Points to a literal describing the results of the service, e.g. 'Decision on construction permit'."@de;
+    rdfs:domain <ServiceCatalogEntry> ;
+    rdfs:range xsd:string .
+
+<serviceDescription> a rdf:Property ;
+    skos:prefLabel "Service Description"@en ;
+    skos:prefLabel "Beschreibung der Leistung"@de ;
+    skos:definition "Points to a literal providing a short description of the service."@de;
+    rdfs:domain [ owl:unionOf ( <GovernmentService> <ServiceCatalogEntry> ) ];
+    rdfs:range xsd:string .
+
+<descriptor> a rdf:Property ;
+    skos:prefLabel "Descriptor"@en ;
+    skos:prefLabel "Deskriptor"@de ;
+    skos:definition "Points to a a term describing the subject."@de;
+    rdfs:domain <ServiceCatalogEntry> ; #probably more generic
+    rdfs:range xsd:string.
+
+<abbreviation> a rdf:Property ;
+    skos:prefLabel "Abbreviation"@en ;
+    skos:prefLabel "Kürzel"@de ;
+    skos:altLabel "Kurzform"@de;
+    skos:definition "Points to the (official) abbreviated name of the subject."@de;
+    rdfs:range xsd:string;
+    rdfs:comment "eCH-0186 introduces 'Behördenkürzel', generalized here".
+
+<territorialCommunityAssociation> a rdf:Property ;
+    skos:prefLabel "Association with Territorial Community"@en ;
+    skos:prefLabel "Zugehörigkeit zu Gebietskörperschaft"@en ;
+    skos:definition "Points to the territotial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territrial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'.";
+    rdfs:range <TerritorialCommunity> ;
+    rdfs:domain <GovernmentOrganization>.
+
+
+<fee> a rdf:Property;
+    skos:prefLabel "Fee"@en;
+    skos:prefLabel "Gebühr"@de;
+    skos:definition "Eine Abgabe, die für das Erbringen einer Leistung oder für die mit der Leistung verbundene Nutzniessung eines Geschäftsobjekts erhoben wird ."@de;
+    rdfs:comment "Defined in eCH-177 vocabulary";
+    rdfs:domain <GovernmentService> ;
+    rdfs:range xsd:decimal .
+
+# is this class required? schema.org/GovernmentOrganisation has the property schema.org/PostalAddress.
+
+<Address> a rdfs:Class, owl:Class;
+    skos:prefLabel "Address"@en;
+    skos:prefLabel "Adresse"@de;
+    skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
+    rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0046";
+    rdfs:subClassOf schema:PostalAddress .
+
+# class not used
+
+<Function> a rdfs:Class, owl:Class;
+    skos:prefLabel "Function"@en;
+    skos:prefLabel "Aufgabe"@de;
+    skos:altLabel "Öffentliche Funktion"@de;
+    skos:altLabel "Verwaltungsaufgabe"@de;
+    skos:altLabel "Behördliche Funktion"@de;
+    skos:definition "Eine durch gesetzliche Vorschrift einer Behörde übertragene, mittels Leistungen erfüllte staatliche Funktion."@de;
+    rdfs:comment "Defined in eCH-177 vocabulary".
+
+<GovernmentOrganization> a rdfs:Class, owl:Class;
+    skos:prefLabel "GovernmentOrganization"@en;
+    skos:prefLabel "Behörde"@de;
+    skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de;
+    rdfs:subClassOf schema:GovernmentOrganization;
+    rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186.";
+    rdfs:subClassOf [
+       a owl:Restrictions;
+       owl:onProperty schema:name;
+       owl:minCardinality 1
+    ].
+    
+<subOrganizationOf> a rdf:Property ;
+    skos:prefLabel "subOrganisationOf"@en ;
+    skos:prefLabel "subOrganisationOf"@de ;
+    skos:definition "Points to the next higher level Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <GovernmentOrganization> .
+
+<hasEmployment> a rdf:Property ; 
+    skos:prefLabel "Employment of the Organization"@en ;
+    skos:prefLabel "Arbeitsstelle der Organisation"@de ;
+    skos:definition "Points to an employment of the Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <Employment> .
+
+<Restriction> a rdfs:Class, owl:Class;
+    skos:prefLabel "Restriction"@en;
+    skos:prefLabel "Einschränkung"@de;
+    skos:definition "A restriction of availability. An instance of Restriction is associated to the restricted service via the property 'restriction'."@en.
+
+<DelayRestriction> a rdfs:Class, owl:Class;
+    rdfs:subClassOf <Restriction>;
+    skos:definition "Defines a restriction to a delay expressed as relative to a key date"@en.
+
+<delayStart> a rdf:Property;
+    skos:prefLabel "Start of delay"@en;
+    skos:prefLabel "Beginn der Frist"@de;
+    skos:definition "Der beginn der fist relativ zum stichtag."@de;
+    rdfs:domain <DelayRestriction> ;
+    rdfs:range xsd:duration .
+
+<delayEnd> a rdf:Property;
+    skos:prefLabel "End of delay"@en;
+    skos:prefLabel "Ende der Frist"@de;
+    skos:definition "Der beginn der fist relativ zum stichtag."@de;
+    rdfs:domain <DelayRestriction> ;
+    rdfs:range xsd:duration .
+
+<AgeRestriction> a rdfs:Class, owl:Class;
+    rdfs:subClassOf <Restriction>;
+    skos:definition "Defines a restriction on the age of the person procuring a service"@en.
+
+<minAge> a rdf:Property;
+    skos:prefLabel "Minimum Age"@en;
+    skos:prefLabel "Mindestalter"@de;
+    skos:definition "Das Mindestalter in Jahre"@de;
+    rdfs:domain <AgeRestriction> ;
+    rdfs:range xsd:int .
+
+<maxAge> a rdf:Property;
+    skos:prefLabel "Maximum Age"@en;
+    skos:prefLabel "Höchstalter"@de;
+    skos:definition "Das Höchstalter in Jahre"@de;
+    rdfs:domain <AgeRestriction> ;
+    rdfs:range xsd:int .
+
+# Properties and classes related to Authority Directory
+
+<id> a rdf:Property;
+   skos:prefLabel "ID"@en;
+   skos:prefLabel "ID"@de;
+   skos:definition "The official identifier of the subject";
+   rdfs:range xsd:string .
+
+<Employment> a rdfs:Class;
+   rdfs:subClassOf schema:ContactPoint;
+   skos:prefLabel "Employment"@en;
+   skos:definition "An employment position"@en ;
+   rdfs:comment "Typical properties include  dcterms:description".
+   
+<occupiedBy> a rdf:Property;
+   skos:prefLabel "occupied by"@en;
+   skos:prefLabel "wird ausgeübt von"@de;
+   skos:definition "Points to the person that actually works in the Employment.";
+   rdfs:domain <Employment> ;
+   rdfs:range <Employee> .
+   
+<Description>  a rdf:Property;
+   skos:prefLabel "Description"@en;
+   skos:prefLabel "Beschreibung"@de;
+   skos:definition "Describes the function of the subject";
+   rdfs:domain <Employment> ;
+   rdfs:range xsd:string .
+
+<Function>  a rdf:Property;
+   skos:prefLabel "Function"@en;
+   skos:prefLabel "Funktion"@de;
+   skos:definition "Name of the function of the employment.";
+   rdfs:domain <Employment> ;
+   rdfs:range xsd:string .
+
+<Employee> a rdfs:Class;
+   rdfs:subClassOf schema:Person;
+   skos:prefLabel "Employee"@en;
+   skos:definition "A Person"@en .
+   
+<PaymentContact>  a  rdfs:Class;
+   skos:prefLabel "PaymentContact"@en;
+   skos:definition "A bank account identifier or similar to witch payments can be directed"@en.
+   
+<payContact> a rdf:Property ; 
+    skos:prefLabel "payContact of the Organization"@en ;
+    skos:prefLabel "Zahlungsinformationen der Organisation"@de ;
+    skos:definition "Points to the PaymentContact of the Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <PaymentContact> .
+
+<iban>  a rdf:Property;
+   skos:prefLabel "iban"@en;
+   skos:prefLabel "iban"@de;
+   skos:definition "Points to the IBAN identifier of the subject (in the form for digital transmission, i.e. without spaces)"@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
+
+<swift>  a rdf:Property;
+   skos:prefLabel "swift"@en;
+   skos:prefLabel "swift"@de;
+   skos:definition "Points to the SWIFT number associated to the subject"@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
+
+<bankName>  a rdf:Property;
+   skos:prefLabel "Bank Name"@en;
+   skos:prefLabel "Bank Name"@de;
+   skos:definition "Points to the bank name of the subject."@en;
+   rdfs:domain <PaymentContact> ;
+   rdfs:range xsd:string .
