@@ -55,7 +55,7 @@
     skos:prefLabel "Furnitur da prestaziuns"@rm ;
     skos:definition "Points to the provider of the subject, usually a GovernmentOrganization"@de;
     rdfs:domain <GovernmentService> ;
-    rdfs:range schema:Organization .
+    rdfs:range <GovernmentOrganization> .
 
 <serviceOutput> a rdf:Property ;
     skos:prefLabel "Service Output"@en ;
@@ -239,7 +239,7 @@
 <employmentFunction>  a rdf:Property;
    skos:prefLabel "Description"@en;
    skos:prefLabel "Beschreibung"@de;
-   skos:definition "Describes this specific employment";
+   skos:definition "Title of the function of the employment";
    rdfs:domain <Employment> ;
    rdfs:range xsd:string .
 
