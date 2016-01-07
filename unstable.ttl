@@ -55,7 +55,7 @@
     skos:prefLabel "Furnitur da prestaziuns"@rm ;
     skos:definition "Points to the provider of the subject, usually a GovernmentOrganization"@de;
     rdfs:domain <GovernmentService> ;
-    rdfs:range schema:Organization .
+    rdfs:range <GovernmentOrganization> .
 
 <serviceOutput> a rdf:Property ;
     skos:prefLabel "Service Output"@en ;
@@ -129,12 +129,14 @@
     rdfs:domain <GovernmentService> ;
     rdfs:range xsd:decimal .
 
-
+# Address used for service channel
 <Address> a rdfs:Class, owl:Class;
     skos:prefLabel "Address"@en;
     skos:prefLabel "Adresse"@de;
     skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
     rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0046".
+
+# class not used
 
 <Function> a rdfs:Class, owl:Class;
     skos:prefLabel "Function"@en;
@@ -156,6 +158,20 @@
        owl:onProperty schema:name;
        owl:minCardinality 1
     ].
+    
+<subOrganizationOf> a rdf:Property ;
+    skos:prefLabel "subOrganisationOf"@en ;
+    skos:prefLabel "subOrganisationOf"@de ;
+    skos:definition "Points to the next higher level Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <GovernmentOrganization> .
+
+<hasEmployment> a rdf:Property ; 
+    skos:prefLabel "Employment of the Organization"@en ;
+    skos:prefLabel "Arbeitsstelle der Organisation"@de ;
+    skos:definition "Points to an employment of the Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <Employment> .
 
 <Restriction> a rdfs:Class, owl:Class;
     skos:prefLabel "Restriction"@en;
@@ -211,17 +227,44 @@
    skos:prefLabel "Employment"@en;
    skos:definition "An employment position"@en ;
    rdfs:comment "Typical properties include  dcterms:description".
-
+   
+   
+<occupiedBy> a rdf:Property;
+   skos:prefLabel "occupied by"@en;
+   skos:prefLabel "wird ausgeübt von"@de;
+   skos:definition "Points to the person that actually works in the Employment.";
+   rdfs:domain <Employment> ;
+   rdfs:range <Employee> .
+   
 <employmentFunction>  a rdf:Property;
-   skos:prefLabel "ID"@en;
-   skos:prefLabel "ID"@de;
-   skos:definition "Describes the function of the subject";
+   skos:prefLabel "Description"@en;
+   skos:prefLabel "Beschreibung"@de;
+   skos:definition "Title of the function of the employment";
    rdfs:domain <Employment> ;
    rdfs:range xsd:string .
 
-<PaymentContact> a rdfs:Class;
+<function>  a rdf:Property;
+   skos:prefLabel "Function"@en;
+   skos:prefLabel "Funktion"@de;
+   skos:definition "Name of the function of the employment.";
+   rdfs:domain <Employment> ;
+   rdfs:range xsd:string .
+
+<Employee> a rdfs:Class;
+   rdfs:subClassOf schema:Person;
+   skos:prefLabel "Employee"@en;
+   skos:definition "A Person"@en .
+   
+<PaymentContact>  a  rdfs:Class;
    skos:prefLabel "PaymentContact"@en;
    skos:definition "A bank account identifier or similar to witch payments can be directed"@en.
+   
+<paymentContact> a rdf:Property ; 
+    skos:prefLabel "payContact of the Organization"@en ;
+    skos:prefLabel "Zahlungsinformationen der Organisation"@de ;
+    skos:definition "Points to the PaymentContact of the Organization."@en;
+    rdfs:domain <GovernmentOrganization> ;
+    rdfs:range <PaymentContact> .
 
 <iban>  a rdf:Property;
    skos:prefLabel "iban"@en;
