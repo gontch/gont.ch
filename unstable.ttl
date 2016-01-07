@@ -237,8 +237,8 @@
    rdfs:range <Employee> .
    
 <employmentFunction>  a rdf:Property;
-   skos:prefLabel "Description"@en;
-   skos:prefLabel "Beschreibung"@de;
+   skos:prefLabel "Employment Function"@en;
+   skos:prefLabel "Stellenfunktion"@de;
    skos:definition "Title of the function of the employment";
    rdfs:domain <Employment> ;
    rdfs:range xsd:string .
