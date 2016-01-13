@@ -17,8 +17,8 @@
    skos:prefLabel "Government Service"@en;
    skos:prefLabel "Behörden Leistung"@de;
    skos:altLabel "Öffentliche Leistung"@de;
-   rdfs:comment "TODO: check relation to schema:Service and GovernmentService";
-   rdfs:comment "Defined as 'Leistung' in eCH-177 vocabulary, specified in ECH-73.".
+   skos:definition "TODO: check relation to schema:Service and GovernmentService";
+   skos:definition "Defined as 'Leistung' in eCH-177 vocabulary, specified in ECH-73.".
 
 
 # Service catalog related classes and properties
@@ -111,7 +111,7 @@
     skos:altLabel "Kurzform"@de;
     skos:definition "Points to the (official) abbreviated name of the subject."@de;
     rdfs:range xsd:string;
-    rdfs:comment "eCH-0186 introduces 'Behördenkürzel', generalized here".
+    skos:definition "eCH-0186 introduces 'Behördenkürzel', generalized here".
 
 <territorialCommunityAssociation> a rdf:Property ;
     skos:prefLabel "Association with Territorial Community"@en ;
@@ -125,7 +125,7 @@
     skos:prefLabel "Fee"@en;
     skos:prefLabel "Gebühr"@de;
     skos:definition "Eine Abgabe, die für das Erbringen einer Leistung oder für die mit der Leistung verbundene Nutzniessung eines Geschäftsobjekts erhoben wird ."@de;
-    rdfs:comment "Defined in eCH-177 vocabulary";
+    skos:definition "Defined in eCH-177 vocabulary";
     rdfs:domain <GovernmentService> ;
     rdfs:range xsd:decimal .
 
@@ -134,7 +134,7 @@
     skos:prefLabel "Address"@en;
     skos:prefLabel "Adresse"@de;
     skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
-    rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0046".
+    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0046".
 
 # class not used
 
@@ -145,14 +145,14 @@
     skos:altLabel "Verwaltungsaufgabe"@de;
     skos:altLabel "Behördliche Funktion"@de;
     skos:definition "Eine durch gesetzliche Vorschrift einer Behörde übertragene, mittels Leistungen erfüllte staatliche Funktion."@de;
-    rdfs:comment "Defined in eCH-177 vocabulary".
+    skos:definition "Defined in eCH-177 vocabulary".
 
 <GovernmentOrganization> a rdfs:Class, owl:Class;
     skos:prefLabel "GovernmentOrganization"@en;
     skos:prefLabel "Behörde"@de;
     skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de;
     rdfs:subClassOf schema:GovernmentOrganization;
-    rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186.";
+    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186.";
     rdfs:subClassOf [
        a owl:Restrictions;
        owl:onProperty schema:name;
@@ -226,7 +226,7 @@
    rdfs:subClassOf schema:ContactPoint;
    skos:prefLabel "Employment"@en;
    skos:definition "An employment position"@en ;
-   rdfs:comment "Typical properties include  dcterms:description".
+   skos:definition "Typical properties include  dcterms:description".
    
    
 <occupiedBy> a rdf:Property;
