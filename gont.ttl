@@ -1,495 +1,655 @@
-@base <https://gont.ch/> .
+# baseURI: https://gont.ch/
+# imports: http://purl.org/dc/elements/1.1/
+# imports: http://purl.org/dc/terms/
+# imports: http://schema.org/
+# imports: http://semanticweb.cs.vu.nl/2009/11/sem/sem.rdf
+# imports: http://www.w3.org/2004/02/skos/core
+
+@prefix : <https://gont.ch/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <http://schema.org/> .
 @prefix sem: <http://semanticweb.cs.vu.nl/2009/11/sem/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix schema: <http://schema.org/> .
-
-<https://gont.ch/> a owl:Ontology;
-	owl:versionInfo "Created by Zazuko"@en;
-	dc:title "Gont Ontology"@en;
-	dc:description "Ontology by Zazuko"@en.
-
-<Municipality> a rdfs:Class, owl:Class;
-    skos:prefLabel "Municipality"@en ;
-    skos:prefLabel "Gemeinde"@de ;
-    rdfs:subClassOf <TerritorialCommunity> .
-
-<PoliticalMunicipality> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <Municipality> ;
-    skos:prefLabel "Political municipality"@en ;
-    skos:prefLabel "Politische Gemeinde"@de .
-
-<MunicipalityFreeArea> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <Municipality> ;
-    skos:prefLabel "Municipality free area"@en ;
-    skos:prefLabel "Gemeindefreies Gebiet"@de .
-
-<CantonalLakePortion> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <Municipality> ;
-    skos:prefLabel "Cantonal lake portion"@en ;
-    skos:prefLabel "Kantonaler Seeanteil"@de .
-
-<MunicipalityVersion> a rdfs:Class, owl:Class;
-    skos:prefLabel "Municipality Version"@en ;
-    skos:prefLabel "Historisierte Gemeinde"@de .
-
-<Canton> a rdfs:Class, owl:Class;
-    skos:prefLabel "Canton"@en ;
-    skos:prefLabel "Kanton"@de ;
-    rdfs:subClassOf <TerritorialCommunity> .
-
-<DistrictEntity> a rdfs:Class, owl:Class;
-    skos:prefLabel "District Entity"@en ;
-    skos:prefLabel "Entität Bezirk"@de ;
-    rdfs:subClassOf <TerritorialCommunity> ;
-    skos:definition "Entität Bezirk (Bezirk oder Entität die aus statistischen bzw. geographischen Gründen auf der Ebene Bezirk ausgewiesen wird)"@de .
-
-<District> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <DistrictEntity> ;
-    skos:prefLabel "District"@en ;
-    skos:prefLabel "Bezirk"@de .
-
-<DistrictlessCanton> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <DistrictEntity> ;
-    skos:prefLabel "Canton without district"@en ;
-    skos:prefLabel "Kanton ohne Bezirksunterteilung"@de .
-
-<DistrictFreeArea> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <DistrictEntity> ;
-    skos:prefLabel "District free area"@en ;
-    skos:prefLabel "Bezirksfreies Gebiet"@de .
-
-<DistrictEntityVersion> a rdfs:Class, owl:Class;
-    skos:prefLabel "District Version"@en ;
-    skos:prefLabel "Historisierter Bezirk"@de .
-
-<TerritorialCommunity> a rdfs:Class, owl:Class;
-    skos:prefLabel "Territorial Community"@en ;
-    skos:prefLabel "Gebietskörperschaft"@de .
-
-<ChangeEvent> a rdfs:Class, owl:Class;
-    rdfs:subClassOf sem:Event ;
-    skos:prefLabel "Mutation"@en ;
-    skos:prefLabel "Mutation"@de .
-
-<MunicipalityChangeEvent> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <ChangeEvent> ;
-    skos:prefLabel "Municipality mutation"@en ;
-    skos:prefLabel "Gemeindemutation"@de .
-
-<DistrictChangeEvent> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <ChangeEvent> ;
-    skos:prefLabel "District mutation"@en ;
-    skos:prefLabel "Distriktmutation"@de .
-
-<canton> a rdf:Property ;
-    skos:prefLabel "Canton affiliation"@en ;
-    skos:prefLabel "Kantonszugehörigkeit"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range <Canton> .
-
-<cantonAbbreviation> a rdf:Property ;
-    skos:prefLabel "Canton abbreviation"@en ;
-    skos:prefLabel "Kantonskürzel"@de ;
-    skos:definition "Das Merkmal Kantonskürzel enthält das allgemein, z.B. auf Autokennzeichen verwendete Kürzel für Kantone (ZH = Zürich / BE = Bern / etc.)."@de;
-    rdfs:domain <Canton> ;
-    rdfs:range rdfs:Literal .
-
-<longName> a rdf:Property ;
-    skos:prefLabel "District name or official municipality name"@en ;
-    skos:prefLabel "Bezirkname oder amtlicher Gemeindename"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <Canton> <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range rdfs:Literal .
-
-<shortName> a rdf:Property ;
-    skos:prefLabel "Short district/municipality name"@en ;
-    skos:prefLabel "Kurzer Bezirk/Gemeindename"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <Canton> <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range rdfs:Literal .
-
-<district> a rdf:Property ;
-    skos:prefLabel "District affiliation"@en ;
-    skos:prefLabel "Bezirkszugehörigkeit"@de ;
-    rdfs:domain <MunicipalityVersion> ;
-    rdfs:range <DistrictEntityVersion> .
-
-<abolitionEvent> a rdf:Property ;
-    skos:prefLabel "Mutation event abolition"@en ;
-    skos:prefLabel "Mutationsevent Aufhebung"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range <ChangeEvent> .
-
-<admissionEvent> a rdf:Property ;
-    skos:prefLabel "Mutation event admission"@en ;
-    skos:prefLabel "Mutationsevent Aufnahme"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range <ChangeEvent> .
-
-<admissionMode> a rdf:Property ;
-    skos:prefLabel "Admission type"@en ;
-    skos:prefLabel "Art der Aufnahme"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range  [ a owl:Class; owl:oneOf ( <InitialCompilation> <NewFoundation> <NameChange> <NewDistrictOrCanton> <TerritorialChange> <Renumbering>) ] ;.
-
-<abolitionMode> a rdf:Property ;
-    skos:prefLabel "Abolition type"@en ;
-    skos:prefLabel "Art der Aufhebung"@de ;
-    rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
-    rdfs:range  [ a owl:Class; owl:oneOf ( <NameChange> <NewDistrictOrCanton> <TerritorialChange> <Renumbering> <Dissolution> <AbrogationOfMutation> ) ] ;.
-
-<id> a rdf:Property ;
-    skos:prefLabel "Identifier"@en ;
-    skos:prefLabel "Identifikator"@de ;
-    skos:definition "The official identifier of the subject"@en;
-    rdfs:range rdfs:Literal .
-
-<districtVersion> a rdf:Property ;
-    skos:prefLabel "Versioned district"@en ;
-    skos:prefLabel "Historisierter Bezirk"@de ;
-    rdfs:domain <DistrictEntity> ;
-    rdfs:range <DistrictEntityVersion> .
-
-<municipalityVersion> a rdf:Property ;
-    skos:prefLabel "Versioned municipality"@en ;
-    skos:prefLabel "Historisierte Gemeinde"@de ;
-    rdfs:domain <Municipality> ;
-    rdfs:range <MunicipalityVersion> .
-
-<date> a rdf:Property ;
-    skos:prefLabel "Date of mutation"@en ;
-    skos:prefLabel "Datum der Mutation"@de ;
-    rdfs:domain <ChangeEvent> ;
-    rdfs:range rdfs:Literal .
-
-<InitialCompilation> a skos:Concept ;
-    skos:prefLabel "Initial compilation"@en ;
-    skos:prefLabel "Ersterfassung"@de ;
-    skos:notation 20 ;
-    skos:definition "Neugründung Gemeinde/Bezirk"@de.
-
-<NewFoundation> a skos:Concept ;
-    skos:prefLabel "New foundation"@en ;
-    skos:prefLabel "Neugründung"@de ;
-    skos:notation 21 ;
-    skos:definition "Neugründung Gemeinde/Bezirk"@de.
-
-<NameChange> a skos:Concept ;
-    skos:prefLabel "Change of name"@en ;
-    skos:prefLabel "Namensänderung"@de ;
-    skos:notation 23 ;
-    skos:definition "Namensänderung Gemeinde/Bezirk"@de.
-
-<NewDistrictOrCanton> a skos:Concept ;
-    skos:prefLabel "New district or canton"@en ;
-    skos:prefLabel "Neuer BEZ/KT"@de ;
-    skos:notation 24 ;
-    skos:definition "Neue Bezirks-/Kantonszuteilung "@de.
-
-#Frage: was für einen Abolitionsmode hat ein Bezirk bei einer Gebietsänderung des Bezirks
-<TerritorialChange> a skos:Concept ;
-    skos:prefLabel "Territorial change"@en ;
-    skos:prefLabel "Gebietänderung"@de ;
-    skos:notation 26 ;
-    skos:definition "Gebietsänderung Gemeinde"@de.
-
-<Renumbering> a skos:Concept ;
-    skos:prefLabel "Renumbering of municipality/district"@en ;
-    skos:prefLabel "Neunummerierung GDE/BEZ"@de ;
-    skos:notation 27 ;
-    skos:definition "Formale Neunummerierung Gemeinde/Bezirk"@de.
-
-<Dissolution> a skos:Concept ;
-    skos:prefLabel "Dissolution"@en ;
-    skos:prefLabel "Aufhebung"@de ;
-    skos:notation 29 ;
-    skos:definition "Aufhebung Gemeinde/Bezirk"@de.
-
-<AbrogationOfMutation> a skos:Concept ;
-    skos:prefLabel "Abrogation of mutation"@en ;
-    skos:prefLabel "Mutation annulliert"@de ;
-    skos:notation 30 ;
-    skos:definition "Mutation annulliert"@de.
-
-# Behördenverzeichnis
-
-# id, range integer
-# name: skos-label
-# synonyme: skos alt-label
-# aktion p und d übernehmen, mit klasse Aktion als object
-# rechtliche Grundlage: legalBasisDescription (range literal), legalBasis (range: Gesetz/verorrdnung - "Norm"/ lkif:"Legal_Source", URI? web URI oder data)
-
-<GovernmentService> a rdfs:Class, owl:Class;
-   skos:prefLabel "Government Service"@en;
-   skos:prefLabel "Behörden Leistung"@de;
-   skos:altLabel "Öffentliche Leistung"@de;
-   skos:definition "TODO: check relation to schema:Service and GovernmentService";
-   skos:definition "Defined as 'Leistung' in eCH-177 vocabulary, specified in ECH-73.".
-
-# Service catalog related classes and properties
-
-<ServiceCatalogEntry> a rdfs:Class, owl:Class;
-   skos:prefLabel "Service Cat-alog Entry"@en;
-   skos:prefLabel "Eintrag Leistungsinventar"@de;
-   skos:definition "Eine Leistung gemäss eCH-0070";
-   rdfs:subClassOf [
-      a owl:Restrictions;
-      owl:onProperty dcterms:title;
-      owl:minCardinality 1
-   ].
-
-<serviceCatalogEntry> a rdf:Property ;
-    skos:prefLabel "Service Catalog Entry"@en ;
-    skos:prefLabel "Eintrag im Leistungskatalog"@de ;
-    skos:definition "Points to the kind of service of the subject pointing to a Service Catalog Entry"@en;
-    rdfs:domain <GovernmentService> ;
-    rdfs:range <ServiceCatalogEntry> .
-
-<recommendedAdditionalService> a rdf:Property ;
-    skos:prefLabel "Recommended Additional Service"@en ;
-    skos:prefLabel "Empfohlene Zusatzdiensleistung"@de ;
-    skos:definition "Points to a recommended additional service related to the subject."@en;
-    rdfs:domain <GovernmentService> ;
-    rdfs:range <GovernmentService> .
-
-<serviceProvider> a rdf:Property ;
-    skos:prefLabel "Service Provider"@en ;
-    skos:prefLabel "Leistungerbringer"@de ;
-    skos:prefLabel "Furnitur da prestaziuns"@rm ;
-    skos:definition "Points to the provider of the subject, usually a GovernmentOrganization"@de;
-    rdfs:domain <GovernmentService> ;
-    rdfs:range <GovernmentOrganization> .
-
-<serviceOutput> a rdf:Property ;
-    skos:prefLabel "Service Output"@en ;
-    skos:prefLabel "Output der Dienstleistung"@de ;
-    skos:definition "Point to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de;
-    rdfs:domain <GovernmentService>.
-
-<restriction> a rdf:Property ;
-    skos:prefLabel "Restriction"@en ;
-    skos:prefLabel "Einschränkung"@de ;
-    skos:definition "Point to a restriction on the availability of the subject."@de;
-    rdfs:domain <GovernmentService>;
-    rdfs:range <Restriction>.
-
-<actionD> a rdf:Property ;
-    skos:prefLabel "Action (distribution)"@en ;
-    skos:prefLabel "Aktion (Vertrieb)"@de ;
-    skos:definition "Points to the verb denoting the action of procuring the service."@de;
-    rdfs:domain <ServiceCatalogEntry> ;
-    rdfs:range xsd:string .
-
-<actionP> a rdf:Property ;
-    skos:prefLabel "Action (production)"@en ;
-    skos:prefLabel "Aktion (Produktion)"@de ;
-    skos:definition "Points to the verb denoting the action of rendering the service."@de;
-    rdfs:domain <ServiceCatalogEntry> ;
-    rdfs:range xsd:string .
-
-<serviceResultDescription> a rdf:Property ; #And what name for the result document/product IRI? "product"? "serviceProduct", "resultDocument"- or rename this to serviceResultDescription?
-    skos:prefLabel "Service Result"@en ;
-    skos:prefLabel "Ergebnis der Leistung"@de ;
-    skos:definition "Points to a literal describing the results of the service, e.g. 'Decision on construction permit'."@de;
-    rdfs:domain <ServiceCatalogEntry> ;
-    rdfs:range xsd:string .
-
-<serviceDescription> a rdf:Property ;
-    skos:prefLabel "Service Description"@en ;
-    skos:prefLabel "Beschreibung der Leistung"@de ;
-    skos:definition "Points to a literal providing a short description of the service."@de;
-    rdfs:domain [ owl:unionOf ( <GovernmentService> <ServiceCatalogEntry> ) ];
-    rdfs:range xsd:string .
-
-<descriptor> a rdf:Property ;
-    skos:prefLabel "Descriptor"@en ;
-    skos:prefLabel "Deskriptor"@de ;
-    skos:definition "Points to a a term describing the subject."@de;
-    rdfs:domain <ServiceCatalogEntry> ; #probably more generic
-    rdfs:range xsd:string.
-
-<abbreviation> a rdf:Property ;
-    skos:prefLabel "Abbreviation"@en ;
-    skos:prefLabel "Kürzel"@de ;
-    skos:altLabel "Kurzform"@de;
-    skos:definition "Points to the (official) abbreviated name of the subject."@de;
-    rdfs:range xsd:string;
-    skos:definition "eCH-0186 introduces 'Behördenkürzel', generalized here".
-
-<territorialCommunityAssociation> a rdf:Property ;
-    skos:prefLabel "Association with Territorial Community"@en ;
-    skos:prefLabel "Zugehörigkeit zu Gebietskörperschaft"@en ;
-    skos:definition "Points to the territotial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territrial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'.";
-    rdfs:range <TerritorialCommunity> ;
-    rdfs:domain <GovernmentOrganization>.
-
-
-<fee> a rdf:Property;
-    skos:prefLabel "Fee"@en;
-    skos:prefLabel "Gebühr"@de;
-    skos:definition "Eine Abgabe, die für das Erbringen einer Leistung oder für die mit der Leistung verbundene Nutzniessung eines Geschäftsobjekts erhoben wird ."@de;
-    skos:definition "Defined in eCH-177 vocabulary";
-    rdfs:domain <GovernmentService> ;
-    rdfs:range xsd:decimal .
-
-# Address used for service channel
-<Address> a rdfs:Class, owl:Class;
-    skos:prefLabel "Address"@en;
-    skos:prefLabel "Adresse"@de;
-    skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
-    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0046".
-
-# class not used
-
-<Function> a rdfs:Class, owl:Class;
-    skos:prefLabel "Function"@en;
-    skos:prefLabel "Aufgabe"@de;
-    skos:altLabel "Öffentliche Funktion"@de;
-    skos:altLabel "Verwaltungsaufgabe"@de;
-    skos:altLabel "Behördliche Funktion"@de;
-    skos:definition "Eine durch gesetzliche Vorschrift einer Behörde übertragene, mittels Leistungen erfüllte staatliche Funktion."@de;
-    skos:definition "Defined in eCH-177 vocabulary".
-
-<GovernmentOrganization> a rdfs:Class, owl:Class;
-    skos:prefLabel "GovernmentOrganization"@en;
-    skos:prefLabel "Behörde"@de;
-    skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de;
-    rdfs:subClassOf schema:GovernmentOrganization;
-    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186.";
-    rdfs:subClassOf [
-       a owl:Restrictions;
-       owl:onProperty schema:name;
-       owl:minCardinality 1
-    ].
-    
-<subOrganizationOf> a rdf:Property ;
-    skos:prefLabel "subOrganisationOf"@en ;
-    skos:prefLabel "subOrganisationOf"@de ;
-    skos:definition "Points to the next higher level Organization."@en;
-    rdfs:domain <GovernmentOrganization> ;
-    rdfs:range <GovernmentOrganization> .
-
-<hasEmployment> a rdf:Property ; 
-    skos:prefLabel "Employment of the Organization"@en ;
-    skos:prefLabel "Arbeitsstelle der Organisation"@de ;
-    skos:definition "Points to an employment of the Organization."@en;
-    rdfs:domain <GovernmentOrganization> ;
-    rdfs:range <Employment> .
-
-<Restriction> a rdfs:Class, owl:Class;
-    skos:prefLabel "Restriction"@en;
-    skos:prefLabel "Einschränkung"@de;
-    skos:definition "A restriction of availability. An instance of Restriction is associated to the restricted service via the property 'restriction'."@en.
-
-<DelayRestriction> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <Restriction>;
-    skos:definition "Defines a restriction to a delay expressed as relative to a key date"@en.
-
-<delayStart> a rdf:Property;
-    skos:prefLabel "Start of delay"@en;
-    skos:prefLabel "Beginn der Frist"@de;
-    skos:definition "Der beginn der fist relativ zum stichtag."@de;
-    rdfs:domain <DelayRestriction> ;
-    rdfs:range xsd:duration .
-
-<delayEnd> a rdf:Property;
-    skos:prefLabel "End of delay"@en;
-    skos:prefLabel "Ende der Frist"@de;
-    skos:definition "Der beginn der fist relativ zum stichtag."@de;
-    rdfs:domain <DelayRestriction> ;
-    rdfs:range xsd:duration .
-
-<AgeRestriction> a rdfs:Class, owl:Class;
-    rdfs:subClassOf <Restriction>;
-    skos:definition "Defines a restriction on the age of the person procuring a service"@en.
-
-<minAge> a rdf:Property;
-    skos:prefLabel "Minimum Age"@en;
-    skos:prefLabel "Mindestalter"@de;
-    skos:definition "Das Mindestalter in Jahre"@de;
-    rdfs:domain <AgeRestriction> ;
-    rdfs:range xsd:int .
-
-<maxAge> a rdf:Property;
-    skos:prefLabel "Maximum Age"@en;
-    skos:prefLabel "Höchstalter"@de;
-    skos:definition "Das Höchstalter in Jahre"@de;
-    rdfs:domain <AgeRestriction> ;
-    rdfs:range xsd:int .
-
-# Properties and classes related to Authority Directory
-
-<id> a rdf:Property;
-   skos:prefLabel "ID"@en;
-   skos:prefLabel "ID"@de;
-   skos:definition "The official identifier of the subject";
-   rdfs:range xsd:string .
-
-<Employment> a rdfs:Class;
-   rdfs:subClassOf schema:ContactPoint;
-   skos:prefLabel "Employment"@en;
-   skos:definition "An employment position"@en ;
-   skos:definition "Typical properties include  dcterms:description".
-   
-<occupiedBy> a rdf:Property;
-   skos:prefLabel "occupied by"@en;
-   skos:prefLabel "wird ausgeübt von"@de;
-   skos:definition "Points to the person that actually works in the Employment.";
-   rdfs:domain <Employment> ;
-   rdfs:range <Employee> .
-   
-<employmentFunction> a rdf:Property;
-   skos:prefLabel "Employment Function"@en;
-   skos:prefLabel "Stellenfunktion"@de;
-   skos:definition "Title of the function of the employment";
-   rdfs:domain <Employment> ;
-   rdfs:range xsd:string .
-
-<function> a rdf:Property;
-   skos:prefLabel "Function"@en;
-   skos:prefLabel "Funktion"@de;
-   skos:definition "Name of the function of the employment.";
-   rdfs:domain <Employment> ;
-   rdfs:range xsd:string .
-
-<Employee> a rdfs:Class;
-   rdfs:subClassOf schema:Person;
-   skos:prefLabel "Employee"@en;
-   skos:definition "A Person"@en .
-   
-<PaymentContact> a rdfs:Class;
-   skos:prefLabel "PaymentContact"@en;
-   skos:definition "A bank account identifier or similar to witch payments can be directed"@en.
-   
-<paymentContact> a rdf:Property ; 
-    skos:prefLabel "payContact of the Organization"@en ;
-    skos:prefLabel "Zahlungsinformationen der Organisation"@de ;
-    skos:definition "Points to the PaymentContact of the Organization."@en;
-    rdfs:domain <GovernmentOrganization> ;
-    rdfs:range <PaymentContact> .
-
-<iban> a rdf:Property;
-   skos:prefLabel "iban"@en;
-   skos:prefLabel "iban"@de;
-   skos:definition "Points to the IBAN identifier of the subject (in the form for digital transmission, i.e. without spaces)"@en;
-   rdfs:domain <PaymentContact> ;
-   rdfs:range xsd:string .
-
-<swift> a rdf:Property;
-   skos:prefLabel "swift"@en;
-   skos:prefLabel "swift"@de;
-   skos:definition "Points to the SWIFT number associated to the subject"@en;
-   rdfs:domain <PaymentContact> ;
-   rdfs:range xsd:string .
-
-<bankName> a rdf:Property;
-   skos:prefLabel "Bank Name"@en;
-   skos:prefLabel "Bank Name"@de;
-   skos:definition "Points to the bank name of the subject."@en;
-   rdfs:domain <PaymentContact> ;
-   rdfs:range xsd:string .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:
+  rdf:type owl:Ontology ;
+  dc:description "Ontology by Inversum for doing..."@en ;
+  dc:title "Gont Ontology"@en ;
+  owl:imports dc: ;
+  owl:imports dcterms: ;
+  owl:imports schema: ;
+  owl:imports <http://semanticweb.cs.vu.nl/2009/11/sem/sem.rdf> ;
+  owl:imports <http://www.w3.org/2004/02/skos/core> ;
+  owl:versionInfo "Created by Konstantin Niedermann"@en ;
+.
+:AbrogationOfMutation
+  rdf:type skos:Concept ;
+  skos:definition "Mutation annulliert"@de ;
+  skos:notation 30 ;
+  skos:prefLabel "Abrogation of mutation"@en ;
+  skos:prefLabel "Mutation annulliert"@de ;
+.
+:Address
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0046" ;
+  skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de ;
+  skos:prefLabel "Address"@en ;
+  skos:prefLabel "Adresse"@de ;
+.
+:AgeRestriction
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Restriction ;
+  skos:definition "Defines a restriction on the age of the person procuring a service"@en ;
+.
+:Canton
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :TerritorialCommunity ;
+  skos:prefLabel "Canton"@en ;
+  skos:prefLabel "Kanton"@de ;
+.
+:CantonalLakePortion
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Municipality ;
+  skos:prefLabel "Cantonal lake portion"@en ;
+  skos:prefLabel "Kantonaler Seeanteil"@de ;
+.
+:ChangeEvent
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf sem:Event ;
+  skos:prefLabel "Mutation"@de ;
+  skos:prefLabel "Mutation"@en ;
+.
+:DelayRestriction
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Restriction ;
+  skos:definition "Defines a restriction to a delay expressed as relative to a key date"@en ;
+.
+:Dissolution
+  rdf:type skos:Concept ;
+  skos:definition "Aufhebung Gemeinde/Bezirk"@de ;
+  skos:notation 29 ;
+  skos:prefLabel "Aufhebung"@de ;
+  skos:prefLabel "Dissolution"@en ;
+.
+:District
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :DistrictEntity ;
+  skos:prefLabel "Bezirk"@de ;
+  skos:prefLabel "District"@en ;
+.
+:DistrictChangeEvent
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :ChangeEvent ;
+  skos:prefLabel "District mutation"@en ;
+  skos:prefLabel "Distriktmutation"@de ;
+.
+:DistrictEntity
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :TerritorialCommunity ;
+  skos:definition "Entität Bezirk (Bezirk oder Entität die aus statistischen bzw. geographischen Gründen auf der Ebene Bezirk ausgewiesen wird)"@de ;
+  skos:prefLabel "District Entity"@en ;
+  skos:prefLabel "Entität Bezirk"@de ;
+.
+:DistrictEntityVersion
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:prefLabel "District Version"@en ;
+  skos:prefLabel "Historisierter Bezirk"@de ;
+.
+:DistrictFreeArea
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :DistrictEntity ;
+  skos:prefLabel "Bezirksfreies Gebiet"@de ;
+  skos:prefLabel "District free area"@en ;
+.
+:DistrictlessCanton
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :DistrictEntity ;
+  skos:prefLabel "Canton without district"@en ;
+  skos:prefLabel "Kanton ohne Bezirksunterteilung"@de ;
+.
+:Employee
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf schema:Person ;
+  skos:definition "A Person"@en ;
+  skos:prefLabel "Employee"@en ;
+.
+:Employment
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf schema:ContactPoint ;
+  skos:definition "An employment position"@en ;
+  skos:definition "Typical properties include  dcterms:description" ;
+  skos:prefLabel "Employment"@en ;
+.
+:Function
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:altLabel "Behördliche Funktion"@de ;
+  skos:altLabel "Verwaltungsaufgabe"@de ;
+  skos:altLabel "Öffentliche Funktion"@de ;
+  skos:definition "Defined in eCH-177 vocabulary" ;
+  skos:definition "Eine durch gesetzliche Vorschrift einer Behörde übertragene, mittels Leistungen erfüllte staatliche Funktion."@de ;
+  skos:prefLabel "Aufgabe"@de ;
+  skos:prefLabel "Function"@en ;
+.
+:GovernmentOrganization
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf schema:GovernmentOrganization ;
+  rdfs:subClassOf [
+      rdf:type owl:Restrictions ;
+      owl:minCardinality 1 ;
+      owl:onProperty schema:name ;
+    ] ;
+  skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186." ;
+  skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de ;
+  skos:prefLabel "Behörde"@de ;
+  skos:prefLabel "GovernmentOrganization"@en ;
+.
+:GovernmentService
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:altLabel "Öffentliche Leistung"@de ;
+  skos:definition "Defined as 'Leistung' in eCH-177 vocabulary, specified in ECH-73." ;
+  skos:definition "TODO: check relation to schema:Service and GovernmentService" ;
+  skos:prefLabel "Behörden Leistung"@de ;
+  skos:prefLabel "Government Service"@en ;
+.
+:InitialCompilation
+  rdf:type skos:Concept ;
+  skos:definition "Neugründung Gemeinde/Bezirk"@de ;
+  skos:notation 20 ;
+  skos:prefLabel "Ersterfassung"@de ;
+  skos:prefLabel "Initial compilation"@en ;
+.
+:Municipality
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :TerritorialCommunity ;
+  skos:prefLabel "Gemeinde"@de ;
+  skos:prefLabel "Municipality"@en ;
+.
+:MunicipalityChangeEvent
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :ChangeEvent ;
+  skos:prefLabel "Gemeindemutation"@de ;
+  skos:prefLabel "Municipality mutation"@en ;
+.
+:MunicipalityFreeArea
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Municipality ;
+  skos:prefLabel "Gemeindefreies Gebiet"@de ;
+  skos:prefLabel "Municipality free area"@en ;
+.
+:MunicipalityVersion
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:prefLabel "Historisierte Gemeinde"@de ;
+  skos:prefLabel "Municipality Version"@en ;
+.
+:NameChange
+  rdf:type skos:Concept ;
+  skos:definition "Namensänderung Gemeinde/Bezirk"@de ;
+  skos:notation 23 ;
+  skos:prefLabel "Change of name"@en ;
+  skos:prefLabel "Namensänderung"@de ;
+.
+:NewDistrictOrCanton
+  rdf:type skos:Concept ;
+  skos:definition "Neue Bezirks-/Kantonszuteilung "@de ;
+  skos:notation 24 ;
+  skos:prefLabel "Neuer BEZ/KT"@de ;
+  skos:prefLabel "New district or canton"@en ;
+.
+:NewFoundation
+  rdf:type skos:Concept ;
+  skos:definition "Neugründung Gemeinde/Bezirk"@de ;
+  skos:notation 21 ;
+  skos:prefLabel "Neugründung"@de ;
+  skos:prefLabel "New foundation"@en ;
+.
+:PaymentContact
+  rdf:type rdfs:Class ;
+  skos:definition "A bank account identifier or similar to witch payments can be directed"@en ;
+  skos:prefLabel "PaymentContact"@en ;
+.
+:PoliticalMunicipality
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Municipality ;
+  skos:prefLabel "Political municipality"@en ;
+  skos:prefLabel "Politische Gemeinde"@de ;
+.
+:Renumbering
+  rdf:type skos:Concept ;
+  skos:definition "Formale Neunummerierung Gemeinde/Bezirk"@de ;
+  skos:notation 27 ;
+  skos:prefLabel "Neunummerierung GDE/BEZ"@de ;
+  skos:prefLabel "Renumbering of municipality/district"@en ;
+.
+:Restriction
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:definition "A restriction of availability. An instance of Restriction is associated to the restricted service via the property 'restriction'."@en ;
+  skos:prefLabel "Einschränkung"@de ;
+  skos:prefLabel "Restriction"@en ;
+.
+:ServiceCatalogEntry
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [
+      rdf:type owl:Restrictions ;
+      owl:minCardinality 1 ;
+      owl:onProperty dcterms:title ;
+    ] ;
+  skos:definition "Eine Leistung gemäss eCH-0070" ;
+  skos:prefLabel "Eintrag Leistungsinventar"@de ;
+  skos:prefLabel "Service Cat-alog Entry"@en ;
+.
+:TerritorialChange
+  rdf:type skos:Concept ;
+  skos:definition "Gebietsänderung Gemeinde"@de ;
+  skos:notation 26 ;
+  skos:prefLabel "Gebietänderung"@de ;
+  skos:prefLabel "Territorial change"@en ;
+.
+:TerritorialCommunity
+  rdf:type rdfs:Class ;
+  rdf:type owl:Class ;
+  skos:prefLabel "Gebietskörperschaft"@de ;
+  skos:prefLabel "Territorial Community"@en ;
+.
+:abbreviation
+  rdf:type rdf:Property ;
+  rdfs:range xsd:string ;
+  skos:altLabel "Kurzform"@de ;
+  skos:definition "Points to the (official) abbreviated name of the subject."@de ;
+  skos:definition "eCH-0186 introduces 'Behördenkürzel', generalized here" ;
+  skos:prefLabel "Abbreviation"@en ;
+  skos:prefLabel "Kürzel"@de ;
+.
+:abolitionEvent
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range :ChangeEvent ;
+  skos:prefLabel "Mutation event abolition"@en ;
+  skos:prefLabel "Mutationsevent Aufhebung"@de ;
+.
+:abolitionMode
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          :NameChange
+          :NewDistrictOrCanton
+          :TerritorialChange
+          :Renumbering
+          :Dissolution
+          :AbrogationOfMutation
+        ) ;
+    ] ;
+  skos:prefLabel "Abolition type"@en ;
+  skos:prefLabel "Art der Aufhebung"@de ;
+.
+:actionD
+  rdf:type rdf:Property ;
+  rdfs:domain :ServiceCatalogEntry ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to the verb denoting the action of procuring the service."@de ;
+  skos:prefLabel "Action (distribution)"@en ;
+  skos:prefLabel "Aktion (Vertrieb)"@de ;
+.
+:actionP
+  rdf:type rdf:Property ;
+  rdfs:domain :ServiceCatalogEntry ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to the verb denoting the action of rendering the service."@de ;
+  skos:prefLabel "Action (production)"@en ;
+  skos:prefLabel "Aktion (Produktion)"@de ;
+.
+:admissionEvent
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range :ChangeEvent ;
+  skos:prefLabel "Mutation event admission"@en ;
+  skos:prefLabel "Mutationsevent Aufnahme"@de ;
+.
+:admissionMode
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          :InitialCompilation
+          :NewFoundation
+          :NameChange
+          :NewDistrictOrCanton
+          :TerritorialChange
+          :Renumbering
+        ) ;
+    ] ;
+  skos:prefLabel "Admission type"@en ;
+  skos:prefLabel "Art der Aufnahme"@de ;
+.
+:bankName
+  rdf:type rdf:Property ;
+  rdfs:domain :PaymentContact ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to the bank name of the subject."@en ;
+  skos:prefLabel "Bank Name"@de ;
+  skos:prefLabel "Bank Name"@en ;
+.
+:canton
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range :Canton ;
+  skos:prefLabel "Canton affiliation"@en ;
+  skos:prefLabel "Kantonszugehörigkeit"@de ;
+.
+:cantonAbbreviation
+  rdf:type rdf:Property ;
+  rdfs:domain :Canton ;
+  rdfs:range rdfs:Literal ;
+  skos:definition "Das Merkmal Kantonskürzel enthält das allgemein, z.B. auf Autokennzeichen verwendete Kürzel für Kantone (ZH = Zürich / BE = Bern / etc.)."@de ;
+  skos:prefLabel "Canton abbreviation"@en ;
+  skos:prefLabel "Kantonskürzel"@de ;
+.
+:date
+  rdf:type rdf:Property ;
+  rdfs:domain :ChangeEvent ;
+  rdfs:range rdfs:Literal ;
+  skos:prefLabel "Date of mutation"@en ;
+  skos:prefLabel "Datum der Mutation"@de ;
+.
+:delayEnd
+  rdf:type rdf:Property ;
+  rdfs:domain :DelayRestriction ;
+  rdfs:range xsd:duration ;
+  skos:definition "Der beginn der fist relativ zum stichtag."@de ;
+  skos:prefLabel "End of delay"@en ;
+  skos:prefLabel "Ende der Frist"@de ;
+.
+:delayStart
+  rdf:type rdf:Property ;
+  rdfs:domain :DelayRestriction ;
+  rdfs:range xsd:duration ;
+  skos:definition "Der beginn der fist relativ zum stichtag."@de ;
+  skos:prefLabel "Beginn der Frist"@de ;
+  skos:prefLabel "Start of delay"@en ;
+.
+:descriptor
+  rdf:type rdf:Property ;
+  rdfs:domain :ServiceCatalogEntry ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to a a term describing the subject."@de ;
+  skos:prefLabel "Descriptor"@en ;
+  skos:prefLabel "Deskriptor"@de ;
+.
+:district
+  rdf:type rdf:Property ;
+  rdfs:domain :MunicipalityVersion ;
+  rdfs:range :DistrictEntityVersion ;
+  skos:prefLabel "Bezirkszugehörigkeit"@de ;
+  skos:prefLabel "District affiliation"@en ;
+.
+:districtVersion
+  rdf:type rdf:Property ;
+  rdfs:domain :DistrictEntity ;
+  rdfs:range :DistrictEntityVersion ;
+  skos:prefLabel "Historisierter Bezirk"@de ;
+  skos:prefLabel "Versioned district"@en ;
+.
+:employmentFunction
+  rdf:type rdf:Property ;
+  rdfs:domain :Employment ;
+  rdfs:range xsd:string ;
+  skos:definition "Title of the function of the employment" ;
+  skos:prefLabel "Employment Function"@en ;
+  skos:prefLabel "Stellenfunktion"@de ;
+.
+:fee
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  rdfs:range xsd:decimal ;
+  skos:definition "Defined in eCH-177 vocabulary" ;
+  skos:definition "Eine Abgabe, die für das Erbringen einer Leistung oder für die mit der Leistung verbundene Nutzniessung eines Geschäftsobjekts erhoben wird ."@de ;
+  skos:prefLabel "Fee"@en ;
+  skos:prefLabel "Gebühr"@de ;
+.
+:function
+  rdf:type rdf:Property ;
+  rdfs:domain :Employment ;
+  rdfs:range xsd:string ;
+  skos:definition "Name of the function of the employment." ;
+  skos:prefLabel "Function"@en ;
+  skos:prefLabel "Funktion"@de ;
+.
+:hasEmployment
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentOrganization ;
+  rdfs:range :Employment ;
+  skos:definition "Points to an employment of the Organization."@en ;
+  skos:prefLabel "Arbeitsstelle der Organisation"@de ;
+  skos:prefLabel "Employment of the Organization"@en ;
+.
+:iban
+  rdf:type rdf:Property ;
+  rdfs:domain :PaymentContact ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to the IBAN identifier of the subject (in the form for digital transmission, i.e. without spaces)"@en ;
+  skos:prefLabel "iban"@de ;
+  skos:prefLabel "iban"@en ;
+.
+:id
+  rdf:type rdf:Property ;
+  rdfs:range rdfs:Literal ;
+  rdfs:range xsd:string ;
+  skos:definition "The official identifier of the subject" ;
+  skos:definition "The official identifier of the subject"@en ;
+  skos:prefLabel "ID"@de ;
+  skos:prefLabel "ID"@en ;
+  skos:prefLabel "Identifier"@en ;
+  skos:prefLabel "Identifikator"@de ;
+.
+:longName
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :Canton
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range rdfs:Literal ;
+  skos:prefLabel "Bezirkname oder amtlicher Gemeindename"@de ;
+  skos:prefLabel "District name or official municipality name"@en ;
+.
+:maxAge
+  rdf:type rdf:Property ;
+  rdfs:domain :AgeRestriction ;
+  rdfs:range xsd:int ;
+  skos:definition "Das Höchstalter in Jahre"@de ;
+  skos:prefLabel "Höchstalter"@de ;
+  skos:prefLabel "Maximum Age"@en ;
+.
+:minAge
+  rdf:type rdf:Property ;
+  rdfs:domain :AgeRestriction ;
+  rdfs:range xsd:int ;
+  skos:definition "Das Mindestalter in Jahre"@de ;
+  skos:prefLabel "Mindestalter"@de ;
+  skos:prefLabel "Minimum Age"@en ;
+.
+:municipalityVersion
+  rdf:type rdf:Property ;
+  rdfs:domain :Municipality ;
+  rdfs:range :MunicipalityVersion ;
+  skos:prefLabel "Historisierte Gemeinde"@de ;
+  skos:prefLabel "Versioned municipality"@en ;
+.
+:occupiedBy
+  rdf:type rdf:Property ;
+  rdfs:domain :Employment ;
+  rdfs:range :Employee ;
+  skos:definition "Points to the person that actually works in the Employment." ;
+  skos:prefLabel "occupied by"@en ;
+  skos:prefLabel "wird ausgeübt von"@de ;
+.
+:paymentContact
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentOrganization ;
+  rdfs:range :PaymentContact ;
+  skos:definition "Points to the PaymentContact of the Organization."@en ;
+  skos:prefLabel "Zahlungsinformationen der Organisation"@de ;
+  skos:prefLabel "payContact of the Organization"@en ;
+.
+:recommendedAdditionalService
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  rdfs:range :GovernmentService ;
+  skos:definition "Points to a recommended additional service related to the subject."@en ;
+  skos:prefLabel "Empfohlene Zusatzdiensleistung"@de ;
+  skos:prefLabel "Recommended Additional Service"@en ;
+.
+:restriction
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  rdfs:range :Restriction ;
+  skos:definition "Point to a restriction on the availability of the subject."@de ;
+  skos:prefLabel "Einschränkung"@de ;
+  skos:prefLabel "Restriction"@en ;
+.
+:serviceCatalogEntry
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  rdfs:range :ServiceCatalogEntry ;
+  skos:definition "Points to the kind of service of the subject pointing to a Service Catalog Entry"@en ;
+  skos:prefLabel "Eintrag im Leistungskatalog"@de ;
+  skos:prefLabel "Service Catalog Entry"@en ;
+.
+:serviceDescription
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      owl:unionOf (
+          :GovernmentService
+          :ServiceCatalogEntry
+        ) ;
+    ] ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to a literal providing a short description of the service."@de ;
+  skos:prefLabel "Beschreibung der Leistung"@de ;
+  skos:prefLabel "Service Description"@en ;
+.
+:serviceOutput
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  skos:definition "Point to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de ;
+  skos:prefLabel "Output der Dienstleistung"@de ;
+  skos:prefLabel "Service Output"@en ;
+.
+:serviceProvider
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentService ;
+  rdfs:range :GovernmentOrganization ;
+  skos:definition "Points to the provider of the subject, usually a GovernmentOrganization"@de ;
+  skos:prefLabel "Furnitur da prestaziuns"@rm ;
+  skos:prefLabel "Leistungerbringer"@de ;
+  skos:prefLabel "Service Provider"@en ;
+.
+:serviceResultDescription
+  rdf:type rdf:Property ;
+  rdfs:domain :ServiceCatalogEntry ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to a literal describing the results of the service, e.g. 'Decision on construction permit'."@de ;
+  skos:prefLabel "Ergebnis der Leistung"@de ;
+  skos:prefLabel "Service Result"@en ;
+.
+:shortName
+  rdf:type rdf:Property ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          :Canton
+          :MunicipalityVersion
+          :DistrictEntityVersion
+        ) ;
+    ] ;
+  rdfs:range rdfs:Literal ;
+  skos:prefLabel "Kurzer Bezirk/Gemeindename"@de ;
+  skos:prefLabel "Short district/municipality name"@en ;
+.
+:subOrganizationOf
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentOrganization ;
+  rdfs:range :GovernmentOrganization ;
+  skos:definition "Points to the next higher level Organization."@en ;
+  skos:prefLabel "subOrganisationOf"@de ;
+  skos:prefLabel "subOrganisationOf"@en ;
+.
+:swift
+  rdf:type rdf:Property ;
+  rdfs:domain :PaymentContact ;
+  rdfs:range xsd:string ;
+  skos:definition "Points to the SWIFT number associated to the subject"@en ;
+  skos:prefLabel "swift"@de ;
+  skos:prefLabel "swift"@en ;
+.
+:territorialCommunityAssociation
+  rdf:type rdf:Property ;
+  rdfs:domain :GovernmentOrganization ;
+  rdfs:range :TerritorialCommunity ;
+  skos:definition "Points to the territotial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territrial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'." ;
+  skos:prefLabel "Association with Territorial Community"@en ;
+  skos:prefLabel "Zugehörigkeit zu Gebietskörperschaft"@en ;
+.
