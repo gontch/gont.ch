@@ -147,7 +147,9 @@
     skos:prefLabel "Identifier"@en ;
     skos:prefLabel "Identifikator"@de ;
     skos:definition "The official identifier of the subject"@en;
-    rdfs:range rdfs:Literal .
+    rdfs:range rdfs:Literal;
+    owl:deprecated true;
+    rdfs:comment "This property is deprecated, use  http://purl.org/dc/terms/identifier instead"@en.
 
 <districtVersion> a rdf:Property ;
     skos:prefLabel "Versioned district"@en ;
@@ -424,11 +426,6 @@
 
 # Properties and classes related to Authority Directory
 
-<id> a rdf:Property;
-   skos:prefLabel "ID"@en;
-   skos:prefLabel "ID"@de;
-   skos:definition "The official identifier of the subject";
-   rdfs:range xsd:string .
 
 <Employment> a rdfs:Class;
    rdfs:subClassOf schema:ContactPoint;
