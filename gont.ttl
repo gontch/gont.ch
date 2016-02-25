@@ -270,15 +270,21 @@
 <serviceOutput> a rdf:Property ;
     skos:prefLabel "Service Output"@en ;
     skos:prefLabel "Output der Dienstleistung"@de ;
-    skos:definition "Point to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de;
+    skos:definition "Points to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de;
     rdfs:domain <GovernmentService>.
 
 <restriction> a rdf:Property ;
     skos:prefLabel "Restriction"@en ;
     skos:prefLabel "Einschränkung"@de ;
-    skos:definition "Point to a restriction on the availability of the subject."@de;
+    skos:definition "Points to a restriction on the availability of the subject."@de;
     rdfs:domain <GovernmentService>;
     rdfs:range <Restriction>.
+
+<serviceChannel> a rdf:Property ;
+    skos:prefLabel "Service Channel"@en ;
+    skos:definition "Points to an Address at which a service can be requested."@de;
+    rdfs:domain <GovernmentService>;
+    rdfs:range <Address>.
 
 <actionD> a rdf:Property ;
     skos:prefLabel "Action (distribution)"@en ;
@@ -344,7 +350,8 @@
     skos:prefLabel "Address"@en;
     skos:prefLabel "Adresse"@de;
     skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
-    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0046".
+    rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0046"@en;
+    rdfs:comment "Note that this is more gneric thatn schema:Address"@en.
 
 # class not used
 
