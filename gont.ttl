@@ -101,6 +101,13 @@
     rdfs:domain <Canton> ;
     rdfs:range rdfs:Literal .
 
+<municipality> a rdf:Property;
+    skos:prefLabel "Municipality"@en;
+    skos:prefLabel "Gemeinde"@de;
+    skos:definition "The municipality to which the subject relates"@en;
+    rdfs:comment "The subject may be a municipality or any other entity relating to a municipality"@en;
+    rdfs:range <Municipality>.
+
 <longName> a rdf:Property ;
     skos:prefLabel "District name or official municipality name"@en ;
     skos:prefLabel "Bezirkname oder amtlicher Gemeindename"@de ;
