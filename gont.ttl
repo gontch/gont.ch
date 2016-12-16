@@ -339,7 +339,7 @@
 <territorialCommunityAssociation> a rdf:Property ;
     skos:prefLabel "Association with Territorial Community"@en ;
     skos:prefLabel "Zugehörigkeit zu Gebietskörperschaft"@en ;
-    skos:definition "Points to the territotial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territrial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'.";
+    skos:definition "Points to the territorial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territorial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'.";
     rdfs:range <TerritorialCommunity> ;
     rdfs:domain <GovernmentOrganization>.
 
@@ -358,7 +358,7 @@
     skos:prefLabel "Adresse"@de;
     skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
     rdfs:comment "Defined in eCH-177 vocabulary, specified in eCH-0046"@en;
-    rdfs:comment "Note that this is more gneric thatn schema:Address"@en.
+    rdfs:comment "Note that this is more generic than schema:Address"@en.
 
 # class not used
 
@@ -376,7 +376,7 @@
     skos:prefLabel "Behörde"@de;
     skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de;
     rdfs:subClassOf schema:GovernmentOrganization;
-    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') requred by eCH-0186.";
+    skos:definition "Defined in eCH-177 vocabulary, specified in eCH-0186. IRI of the resource is the Agency Identification ('Behördenidentifikator') required by eCH-0186.";
     rdfs:subClassOf [
        a owl:Restrictions;
        owl:onProperty schema:name;
@@ -409,14 +409,14 @@
 <delayStart> a rdf:Property;
     skos:prefLabel "Start of delay"@en;
     skos:prefLabel "Beginn der Frist"@de;
-    skos:definition "Der beginn der fist relativ zum stichtag."@de;
+    skos:definition "Der Beginn der Frist relativ zum Stichtag."@de;
     rdfs:domain <DelayRestriction> ;
     rdfs:range xsd:duration .
 
 <delayEnd> a rdf:Property;
     skos:prefLabel "End of delay"@en;
     skos:prefLabel "Ende der Frist"@de;
-    skos:definition "Der beginn der fist relativ zum stichtag."@de;
+    skos:definition "Das Ende der Frist relativ zum Stichtag."@de;
     rdfs:domain <DelayRestriction> ;
     rdfs:range xsd:duration .
 
@@ -427,14 +427,14 @@
 <minAge> a rdf:Property;
     skos:prefLabel "Minimum Age"@en;
     skos:prefLabel "Mindestalter"@de;
-    skos:definition "Das Mindestalter in Jahre"@de;
+    skos:definition "Das Mindestalter in Jahren"@de;
     rdfs:domain <AgeRestriction> ;
     rdfs:range xsd:int .
 
 <maxAge> a rdf:Property;
     skos:prefLabel "Maximum Age"@en;
     skos:prefLabel "Höchstalter"@de;
-    skos:definition "Das Höchstalter in Jahre"@de;
+    skos:definition "Das Höchstalter in Jahren"@de;
     rdfs:domain <AgeRestriction> ;
     rdfs:range xsd:int .
 
@@ -504,3 +504,4 @@
    skos:definition "Points to the bank name of the subject."@en;
    rdfs:domain <PaymentContact> ;
    rdfs:range xsd:string .
+
