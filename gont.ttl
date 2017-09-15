@@ -12,8 +12,8 @@
 
 <https://gont.ch/> a owl:Ontology;
     owl:versionInfo "$Id$";
-    dc:title "Gont Ontology"@en;
-    dc:description "Ontology by Zazuko"@en.
+    dc:title "Governmental Ontology Switzerland"@en;
+    dc:description "This is the Governmental Ontology Switzerland (gont.ch) used e.g. for http://classifications.data.admin.ch/ . The ontology is curated by Zazuko.com"@en.
 
 <Municipality> a rdfs:Class, owl:Class;
     skos:prefLabel "Municipality"@en ;
