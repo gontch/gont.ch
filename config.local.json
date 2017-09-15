@@ -1,0 +1,5 @@
+{
+  "baseConfig": "cwd:config.json",
+  "datasetBaseUrl": "https://gont.ch/"
+}
+

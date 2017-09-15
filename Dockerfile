@@ -1,3 +1,6 @@
-FROM zazukoians/trifid-ld
-ADD config.js /usr/src/app/config.js
-ADD gont.ttl /usr/src/app/gont.ttl
+FROM node:6-onbuild
+
+RUN npm install pm2 -g
+CMD pm2-docker start npm -- start
+
+EXPOSE 8080
