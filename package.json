@@ -4,8 +4,8 @@
   "description": "Zazuko aLOD is a software to manage archival finding aids using Linked Data",
   "main": "index.js",
   "dependencies": {
-    "trifid": "zazuko/trifid#develop",
-    "trifid-handler-file": "github:zazuko/trifid-handler-file"
+    "trifid": "^1.10.0",
+    "trifid-handler-file": "^1.0.0"
   },
   "devDependencies": {},
   "license": "UNLICENSED",
