@@ -16,85 +16,102 @@
     dc:description "This is the Governmental Ontology Switzerland (gont.ch) used e.g. for http://classifications.data.admin.ch/ . The ontology is curated by Zazuko.com"@en.
 
 <Municipality> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Municipality"@en ;
     skos:prefLabel "Gemeinde"@de ;
     rdfs:subClassOf <TerritorialCommunity> .
 
 <PoliticalMunicipality> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <Municipality> ;
     skos:prefLabel "Political municipality"@en ;
     skos:prefLabel "Politische Gemeinde"@de .
 
 <MunicipalityFreeArea> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <Municipality> ;
     skos:prefLabel "Municipality free area"@en ;
     skos:prefLabel "Gemeindefreies Gebiet"@de .
 
 <CantonalLakePortion> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <Municipality> ;
     skos:prefLabel "Cantonal lake portion"@en ;
     skos:prefLabel "Kantonaler Seeanteil"@de .
 
 <MunicipalityVersion> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Municipality Version"@en ;
     skos:prefLabel "Historisierte Gemeinde"@de .
 
 <Canton> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Canton"@en ;
     skos:prefLabel "Kanton"@de ;
     rdfs:subClassOf <TerritorialCommunity> .
 
 <DistrictEntity> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "District Entity"@en ;
     skos:prefLabel "Entität Bezirk"@de ;
     rdfs:subClassOf <TerritorialCommunity> ;
     skos:definition "Entität Bezirk (Bezirk oder Entität die aus statistischen bzw. geographischen Gründen auf der Ebene Bezirk ausgewiesen wird)"@de .
 
 <District> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <DistrictEntity> ;
     skos:prefLabel "District"@en ;
     skos:prefLabel "Bezirk"@de .
 
 <DistrictlessCanton> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <DistrictEntity> ;
     skos:prefLabel "Canton without district"@en ;
     skos:prefLabel "Kanton ohne Bezirksunterteilung"@de .
 
 <DistrictFreeArea> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <DistrictEntity> ;
     skos:prefLabel "District free area"@en ;
     skos:prefLabel "Bezirksfreies Gebiet"@de .
 
 <DistrictEntityVersion> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "District Version"@en ;
     skos:prefLabel "Historisierter Bezirk"@de .
 
 <TerritorialCommunity> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Territorial Community"@en ;
     skos:prefLabel "Gebietskörperschaft"@de .
 
 <ChangeEvent> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf sem:Event ;
     skos:prefLabel "Mutation"@en ;
     skos:prefLabel "Mutation"@de .
 
 <MunicipalityChangeEvent> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <ChangeEvent> ;
     skos:prefLabel "Municipality mutation"@en ;
     skos:prefLabel "Gemeindemutation"@de .
 
 <DistrictChangeEvent> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <ChangeEvent> ;
     skos:prefLabel "District mutation"@en ;
     skos:prefLabel "Distriktmutation"@de .
 
 <canton> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Canton affiliation"@en ;
     skos:prefLabel "Kantonszugehörigkeit"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range <Canton> .
 
 <cantonAbbreviation> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Canton abbreviation"@en ;
     skos:prefLabel "Kantonskürzel"@de ;
     skos:definition "Das Merkmal Kantonskürzel enthält das allgemein, z.B. auf Autokennzeichen verwendete Kürzel für Kantone (ZH = Zürich / BE = Bern / etc.)."@de;
@@ -102,6 +119,7 @@
     rdfs:range rdfs:Literal .
 
 <municipality> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Municipality"@en;
     skos:prefLabel "Gemeinde"@de;
     skos:definition "The municipality to which the subject relates"@en;
@@ -109,48 +127,56 @@
     rdfs:range <Municipality>.
 
 <longName> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "District name or official municipality name"@en ;
     skos:prefLabel "Bezirkname oder amtlicher Gemeindename"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <Canton> <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range rdfs:Literal .
 
 <shortName> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Short district/municipality name"@en ;
     skos:prefLabel "Kurzer Bezirk/Gemeindename"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <Canton> <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range rdfs:Literal .
 
 <district> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "District affiliation"@en ;
     skos:prefLabel "Bezirkszugehörigkeit"@de ;
     rdfs:domain <MunicipalityVersion> ;
     rdfs:range <DistrictEntityVersion> .
 
 <abolitionEvent> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Mutation event abolition"@en ;
     skos:prefLabel "Mutationsevent Aufhebung"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range <ChangeEvent> .
 
 <admissionEvent> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Mutation event admission"@en ;
     skos:prefLabel "Mutationsevent Aufnahme"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range <ChangeEvent> .
 
 <admissionMode> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Admission type"@en ;
     skos:prefLabel "Art der Aufnahme"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range  [ a owl:Class; owl:oneOf ( <InitialCompilation> <NewFoundation> <NameChange> <NewDistrictOrCanton> <TerritorialChange> <Renumbering>) ] ;.
 
 <abolitionMode> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Abolition type"@en ;
     skos:prefLabel "Art der Aufhebung"@de ;
     rdfs:domain [ a owl:Class; owl:unionOf ( <MunicipalityVersion> <DistrictEntityVersion> ) ] ;
     rdfs:range  [ a owl:Class; owl:oneOf ( <NameChange> <NewDistrictOrCanton> <TerritorialChange> <Renumbering> <Dissolution> <AbrogationOfMutation> ) ] ;.
 
 <id> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Identifier"@en ;
     skos:prefLabel "Identifikator"@de ;
     skos:definition "The official identifier of the subject"@en;
@@ -159,42 +185,49 @@
     rdfs:comment "This property is deprecated, use  http://purl.org/dc/terms/identifier instead"@en.
 
 <districtVersion> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Versioned district"@en ;
     skos:prefLabel "Historisierter Bezirk"@de ;
     rdfs:domain <DistrictEntity> ;
     rdfs:range <DistrictEntityVersion> .
 
 <municipalityVersion> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Versioned municipality"@en ;
     skos:prefLabel "Historisierte Gemeinde"@de ;
     rdfs:domain <Municipality> ;
     rdfs:range <MunicipalityVersion> .
 
 <date> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Date of mutation"@en ;
     skos:prefLabel "Datum der Mutation"@de ;
     rdfs:domain <ChangeEvent> ;
     rdfs:range rdfs:Literal .
 
 <InitialCompilation> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Initial compilation"@en ;
     skos:prefLabel "Ersterfassung"@de ;
     skos:notation 20 ;
     skos:definition "Neugründung Gemeinde/Bezirk"@de.
 
 <NewFoundation> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "New foundation"@en ;
     skos:prefLabel "Neugründung"@de ;
     skos:notation 21 ;
     skos:definition "Neugründung Gemeinde/Bezirk"@de.
 
 <NameChange> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Change of name"@en ;
     skos:prefLabel "Namensänderung"@de ;
     skos:notation 23 ;
     skos:definition "Namensänderung Gemeinde/Bezirk"@de.
 
 <NewDistrictOrCanton> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "New district or canton"@en ;
     skos:prefLabel "Neuer BEZ/KT"@de ;
     skos:notation 24 ;
@@ -202,24 +235,28 @@
 
 #Frage: was für einen Abolitionsmode hat ein Bezirk bei einer Gebietsänderung des Bezirks
 <TerritorialChange> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Territorial change"@en ;
     skos:prefLabel "Gebietänderung"@de ;
     skos:notation 26 ;
     skos:definition "Gebietsänderung Gemeinde"@de.
 
 <Renumbering> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Renumbering of municipality/district"@en ;
     skos:prefLabel "Neunummerierung GDE/BEZ"@de ;
     skos:notation 27 ;
     skos:definition "Formale Neunummerierung Gemeinde/Bezirk"@de.
 
 <Dissolution> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Dissolution"@en ;
     skos:prefLabel "Aufhebung"@de ;
     skos:notation 29 ;
     skos:definition "Aufhebung Gemeinde/Bezirk"@de.
 
 <AbrogationOfMutation> a skos:Concept ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Abrogation of mutation"@en ;
     skos:prefLabel "Mutation annulliert"@de ;
     skos:notation 30 ;
@@ -234,6 +271,7 @@
 # rechtliche Grundlage: legalBasisDescription (range literal), legalBasis (range: Gesetz/verorrdnung - "Norm"/ lkif:"Legal_Source", URI? web URI oder data)
 
 <GovernmentService> a rdfs:Class, owl:Class;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "Government Service"@en;
    skos:prefLabel "Behörden Leistung"@de;
    skos:altLabel "Öffentliche Leistung"@de;
@@ -243,6 +281,7 @@
 # Service catalog related classes and properties
 
 <ServiceCatalogEntry> a rdfs:Class, owl:Class;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "Service Cat-alog Entry"@en;
    skos:prefLabel "Eintrag Leistungsinventar"@de;
    skos:definition "Eine Leistung gemäss eCH-0070";
@@ -253,6 +292,7 @@
    ].
 
 <serviceCatalogEntry> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Catalog Entry"@en ;
     skos:prefLabel "Eintrag im Leistungskatalog"@de ;
     skos:definition "Points to the kind of service of the subject pointing to a Service Catalog Entry"@en;
@@ -260,6 +300,7 @@
     rdfs:range <ServiceCatalogEntry> .
 
 <recommendedAdditionalService> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Recommended Additional Service"@en ;
     skos:prefLabel "Empfohlene Zusatzdiensleistung"@de ;
     skos:definition "Points to a recommended additional service related to the subject."@en;
@@ -267,6 +308,7 @@
     rdfs:range <GovernmentService> .
 
 <serviceProvider> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Provider"@en ;
     skos:prefLabel "Leistungerbringer"@de ;
     skos:prefLabel "Furnitur da prestaziuns"@rm ;
@@ -275,12 +317,14 @@
     rdfs:range <GovernmentOrganization> .
 
 <serviceOutput> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Output"@en ;
     skos:prefLabel "Output der Dienstleistung"@de ;
     skos:definition "Points to an output (normally identified by an IRI) that will be returned to the entity procuring the service."@de;
     rdfs:domain <GovernmentService>.
 
 <restriction> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Restriction"@en ;
     skos:prefLabel "Einschränkung"@de ;
     skos:definition "Points to a restriction on the availability of the subject."@de;
@@ -288,12 +332,14 @@
     rdfs:range <Restriction>.
 
 <serviceChannel> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Channel"@en ;
     skos:definition "Points to an Address at which a service can be requested."@de;
     rdfs:domain <GovernmentService>;
     rdfs:range <Address>.
 
 <actionD> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Action (distribution)"@en ;
     skos:prefLabel "Aktion (Vertrieb)"@de ;
     skos:definition "Points to the verb denoting the action of procuring the service."@de;
@@ -301,6 +347,7 @@
     rdfs:range xsd:string .
 
 <actionP> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Action (production)"@en ;
     skos:prefLabel "Aktion (Produktion)"@de ;
     skos:definition "Points to the verb denoting the action of rendering the service."@de;
@@ -308,6 +355,7 @@
     rdfs:range xsd:string .
 
 <serviceResultDescription> a rdf:Property ; #And what name for the result document/product IRI? "product"? "serviceProduct", "resultDocument"- or rename this to serviceResultDescription?
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Result"@en ;
     skos:prefLabel "Ergebnis der Leistung"@de ;
     skos:definition "Points to a literal describing the results of the service, e.g. 'Decision on construction permit'."@de;
@@ -315,6 +363,7 @@
     rdfs:range xsd:string .
 
 <serviceDescription> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Service Description"@en ;
     skos:prefLabel "Beschreibung der Leistung"@de ;
     skos:definition "Points to a literal providing a short description of the service."@de;
@@ -322,6 +371,7 @@
     rdfs:range xsd:string .
 
 <descriptor> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Descriptor"@en ;
     skos:prefLabel "Deskriptor"@de ;
     skos:definition "Points to a a term describing the subject."@de;
@@ -329,6 +379,7 @@
     rdfs:range xsd:string.
 
 <abbreviation> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Abbreviation"@en ;
     skos:prefLabel "Kürzel"@de ;
     skos:altLabel "Kurzform"@de;
@@ -337,6 +388,7 @@
     skos:definition "eCH-0186 introduces 'Behördenkürzel', generalized here".
 
 <territorialCommunityAssociation> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Association with Territorial Community"@en ;
     skos:prefLabel "Zugehörigkeit zu Gebietskörperschaft"@en ;
     skos:definition "Points to the territorial community (e.g. commune or canton) to which the subject is associated. In most cases a government organization is associated to only one territorial community, but there are exceptions, e.g. 'Lufthygieneamt beider Basel'.";
@@ -345,6 +397,7 @@
 
 
 <fee> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Fee"@en;
     skos:prefLabel "Gebühr"@de;
     skos:definition "Eine Abgabe, die für das Erbringen einer Leistung oder für die mit der Leistung verbundene Nutzniessung eines Geschäftsobjekts erhoben wird ."@de;
@@ -354,6 +407,7 @@
 
 # Address used for service channel
 <Address> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Address"@en;
     skos:prefLabel "Adresse"@de;
     skos:definition "Kanalspezifische Identifikation eines Absenders oder Empfängers bei der Übermittlung von Informationen"@de;
@@ -363,6 +417,7 @@
 # class not used
 
 <Function> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Function"@en;
     skos:prefLabel "Aufgabe"@de;
     skos:altLabel "Öffentliche Funktion"@de;
@@ -372,6 +427,7 @@
     skos:definition "Defined in eCH-177 vocabulary".
 
 <GovernmentOrganization> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "GovernmentOrganization"@en;
     skos:prefLabel "Behörde"@de;
     skos:definition "Organ des Staates (Bund, Kanton) oder eines selbständigen Verwaltungs­trägers (Bezirk, Gemeinde), das Aufgaben der öffentlichen Verwaltung des Staates oder Verwaltungsträgers wahrnimmt und diesen im zugewiesenen Zuständig­keitsbereich nach Aussen vertritt."@de;
@@ -384,6 +440,7 @@
     ].
     
 <subOrganizationOf> a rdf:Property ;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "subOrganisationOf"@en ;
     skos:prefLabel "subOrganisationOf"@de ;
     skos:definition "Points to the next higher level Organization."@en;
@@ -391,6 +448,7 @@
     rdfs:range <GovernmentOrganization> .
 
 <hasEmployment> a rdf:Property ; 
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Employment of the Organization"@en ;
     skos:prefLabel "Arbeitsstelle der Organisation"@de ;
     skos:definition "Points to an employment of the Organization."@en;
@@ -398,15 +456,18 @@
     rdfs:range <Employment> .
 
 <Restriction> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Restriction"@en;
     skos:prefLabel "Einschränkung"@de;
     skos:definition "A restriction of availability. An instance of Restriction is associated to the restricted service via the property 'restriction'."@en.
 
 <DelayRestriction> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <Restriction>;
     skos:definition "Defines a restriction to a delay expressed as relative to a key date"@en.
 
 <delayStart> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Start of delay"@en;
     skos:prefLabel "Beginn der Frist"@de;
     skos:definition "Der Beginn der Frist relativ zum Stichtag."@de;
@@ -414,6 +475,7 @@
     rdfs:range xsd:duration .
 
 <delayEnd> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "End of delay"@en;
     skos:prefLabel "Ende der Frist"@de;
     skos:definition "Das Ende der Frist relativ zum Stichtag."@de;
@@ -421,10 +483,12 @@
     rdfs:range xsd:duration .
 
 <AgeRestriction> a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     rdfs:subClassOf <Restriction>;
     skos:definition "Defines a restriction on the age of the person procuring a service"@en.
 
 <minAge> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Minimum Age"@en;
     skos:prefLabel "Mindestalter"@de;
     skos:definition "Das Mindestalter in Jahren"@de;
@@ -432,6 +496,7 @@
     rdfs:range xsd:int .
 
 <maxAge> a rdf:Property;
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "Maximum Age"@en;
     skos:prefLabel "Höchstalter"@de;
     skos:definition "Das Höchstalter in Jahren"@de;
@@ -442,12 +507,14 @@
 
 
 <Employment> a rdfs:Class;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    rdfs:subClassOf schema:ContactPoint;
    skos:prefLabel "Employment"@en;
    skos:definition "An employment position"@en ;
    skos:definition "Typical properties include  dcterms:description".
    
 <occupiedBy> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "occupied by"@en;
    skos:prefLabel "wird ausgeübt von"@de;
    skos:definition "Points to the person that actually works in the Employment.";
@@ -455,6 +522,7 @@
    rdfs:range <Employee> .
    
 <employmentFunction> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "Employment Function"@en;
    skos:prefLabel "Stellenfunktion"@de;
    skos:definition "Title of the function of the employment";
@@ -462,6 +530,7 @@
    rdfs:range xsd:string .
 
 <function> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "Function"@en;
    skos:prefLabel "Funktion"@de;
    skos:definition "Name of the function of the employment.";
@@ -469,15 +538,18 @@
    rdfs:range xsd:string .
 
 <Employee> a rdfs:Class;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    rdfs:subClassOf schema:Person;
    skos:prefLabel "Employee"@en;
    skos:definition "A Person"@en .
    
 <PaymentContact> a rdfs:Class;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "PaymentContact"@en;
    skos:definition "A bank account identifier or similar to witch payments can be directed"@en.
    
 <paymentContact> a rdf:Property ; 
+    rdfs:isDefinedBy <https://gont.ch/> ;
     skos:prefLabel "payContact of the Organization"@en ;
     skos:prefLabel "Zahlungsinformationen der Organisation"@de ;
     skos:definition "Points to the PaymentContact of the Organization."@en;
@@ -485,6 +557,7 @@
     rdfs:range <PaymentContact> .
 
 <iban> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "iban"@en;
    skos:prefLabel "iban"@de;
    skos:definition "Points to the IBAN identifier of the subject (in the form for digital transmission, i.e. without spaces)"@en;
@@ -492,6 +565,7 @@
    rdfs:range xsd:string .
 
 <swift> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "swift"@en;
    skos:prefLabel "swift"@de;
    skos:definition "Points to the SWIFT number associated to the subject"@en;
@@ -499,6 +573,7 @@
    rdfs:range xsd:string .
 
 <bankName> a rdf:Property;
+   rdfs:isDefinedBy <https://gont.ch/> ;
    skos:prefLabel "Bank Name"@en;
    skos:prefLabel "Bank Name"@de;
    skos:definition "Points to the bank name of the subject."@en;
