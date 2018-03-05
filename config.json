@@ -1,11 +1,13 @@
 {
-  "baseConfig": "trifid:config.json",
+  "baseConfig": "trifid:config-base.json",
   "staticViews": null,
   "handler": {
-    "module": "trifid-handler-file",
-    "options": {
-      "filename": "gont.ttl",
-      "split": true
+    "root": {
+      "module": "trifid-handler-fetch",
+      "options": {
+        "url": "gont.ttl",
+        "split": true
+      }
     }
   }
 }
