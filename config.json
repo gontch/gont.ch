@@ -6,6 +6,7 @@
       "module": "trifid-handler-fetch",
       "options": {
         "url": "gont.ttl",
+        "cache": true,
         "split": true
       }
     }
