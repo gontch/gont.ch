@@ -1,15 +1,44 @@
-FROM node:6
+FROM node:lts-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json /usr/src/app/
-COPY . /usr/src/app
-RUN npm install && npm cache clean --force
+RUN apk add --no-cache git
 
-ENV NODE_ENV production
+# Copy the package.json and install the dependencies
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
 
-RUN npm install pm2 -g
-CMD pm2-runtime start npm -- start
+USER nobody:nobody
+
+# Ideally set those for published images. To do so, run something like
+#
+#   docker build . \
+#     --tag YOUR_TAG \
+#     --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+#     --build-arg COMMIT=$(git rev-parse HEAD) \
+#     --build-arg VERSION=$(git describe)
+#
+ARG BUILD_DATE
+ARG COMMIT
+ARG VERSION
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="Governmental Ontology Switzerland" \
+      org.label-schema.description="Trifid for SBB-Weather" \
+      org.label-schema.url="This is the Governmental Ontology Switzerland (gont.ch) used e.g. for http://classifications.data.admin.ch/ . The ontology is curated by Zazuko.com" \
+      org.label-schema.vcs-url="https://github.com/gontch/gont.ch" \
+      org.label-schema.vcs-ref=$COMMIT \
+      org.label-schema.vendor="Zazuko" \
+      org.label-schema.version=$VERSION \
+      org.label-schema.schema-version="1.0"
+
+ENTRYPOINT []
+
+# Using npm scripts for running the app allows two things:
+#  - Handle signals correctly (Node does not like to be PID1)
+#  - Let Skaffold detect it's a node app so it can attach the Node debugger
+CMD ["npm", "run", "start"]
 
 EXPOSE 8080
+HEALTHCHECK CMD wget -q -O- http://localhost:8080/health

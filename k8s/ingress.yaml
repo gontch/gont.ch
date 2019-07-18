@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: trifid
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    external-dns.alpha.kubernetes.io/hostname: gont-ch.zazukoians.org
+spec:
+  tls:
+  - secretName: gont-ch-cert
+    hosts:
+    - gont.ch
+  rules:
+  - host: gont.ch
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: trifid
+          servicePort: 80
