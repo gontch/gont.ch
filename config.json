@@ -1,6 +1,8 @@
 {
   "baseConfig": "trifid:config-base.json",
-  "staticViews": null,
+  "staticViews": {
+    "/health": "trifid:views/health.html"
+  },
   "handler": {
     "root": {
       "module": "trifid-handler-fetch",
