@@ -5,10 +5,8 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
-    external-dns.alpha.kubernetes.io/hostname: gont-ch.zazukoians.org
-    traefik.ingress.kubernetes.io/redirect-permanent: "true"
-    traefik.ingress.kubernetes.io/redirect-regex: ^https?://www.gont.ch/(.*)
-    traefik.ingress.kubernetes.io/redirect-replacement: https://gont.ch/$1
+    external-dns.alpha.kubernetes.io/hostname: gont-ch.zazuko.net
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   tls:
     - secretName: gont-ch-cert
@@ -18,17 +16,6 @@ spec:
 
   rules:
     - host: gont.ch
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: trifid
-                port:
-                  number: 80
-
-    - host: www.gont.ch
       http:
         paths:
           - path: /
