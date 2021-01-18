@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: trifid
@@ -11,22 +11,30 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-replacement: https://gont.ch/$1
 spec:
   tls:
-  - secretName: gont-ch-cert
-    hosts:
-    - gont.ch
-    - www.gont.ch
+    - secretName: gont-ch-cert
+      hosts:
+        - gont.ch
+        - www.gont.ch
+
   rules:
-  - host: gont.ch
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: trifid
-          servicePort: 80
-  - host: www.gont.ch
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: trifid
-          servicePort: 80
+    - host: gont.ch
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: trifid
+                port:
+                  number: 80
+
+    - host: www.gont.ch
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: trifid
+                port:
+                  number: 80
