@@ -10,7 +10,7 @@ spec:
         runAsGroup: 65534
       containers:
         - name: trifid
-          image: ghcr.io/zazuko/gont-ch
+          image: ghcr.io/gontch/gont-ch
           imagePullPolicy: Always
 
           ports:

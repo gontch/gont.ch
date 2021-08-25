@@ -29,7 +29,7 @@ jobs:
         uses: zazuko/action-docker-meta@main
         id: docker_meta
         with:
-          images: ghcr.io/zazuko/gont-ch
+          images: ghcr.io/gontch/gont-ch
 
       - name: Build and push Docker images
         id: docker_build
@@ -65,6 +65,6 @@ jobs:
       - name: Run Kubernetes tools
         run: |
           cd k8s/
-          kustomize edit set image "ghcr.io/zazuko/gont-ch:pipeline-${GITHUB_RUN_ID}"
+          kustomize edit set image "ghcr.io/gontch/gont-ch:pipeline-${GITHUB_RUN_ID}"
           kustomize build | tee manifest.yaml
           kubectl apply -f manifest.yaml
